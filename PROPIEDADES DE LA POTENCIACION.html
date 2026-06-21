@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Propiedades de la Potenciación</title>
+    <style>
+        /* Reset y estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* Contenedor principal (formato vertical tipo infografía) */
+        .infografia {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 30px 25px 40px;
+        }
+
+        /* Encabezado */
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #2b6cb0;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #1a365d;
+            letter-spacing: 1px;
+        }
+
+        .header h1 span {
+            color: #e53e3e;
+        }
+
+        .header p {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* Definición básica */
+        .definicion {
+            background: #ebf8ff;
+            border-left: 6px solid #3182ce;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .definicion .formula {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+
+        .definicion .detalle {
+            color: #2d3748;
+            margin-top: 6px;
+            font-size: 0.95rem;
+        }
+
+        /* Secciones de propiedades */
+        .seccion {
+            margin-bottom: 28px;
+        }
+
+        .seccion h2 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seccion h2 .icono {
+            font-size: 1.6rem;
+        }
+
+        /* Tarjetas de propiedades */
+        .grid-propiedades {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .tarjeta {
+            background: #f7fafc;
+            border-radius: 14px;
+            padding: 14px 12px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+
+        .tarjeta:hover {
+            transform: scale(1.02);
+            border-color: #3182ce;
+        }
+
+        .tarjeta .nombre {
+            font-weight: 700;
+            color: #2b6cb0;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .tarjeta .formula-prop {
+            font-family: 'Courier New', monospace;
+            background: #edf2f7;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #1a202c;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+
+        .tarjeta .ejemplo {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .tarjeta .ejemplo span {
+            font-weight: 600;
+            color: #e53e3e;
+        }
+
+        /* Casos especiales */
+        .casos-especiales {
+            background: #fffaf0;
+            border-radius: 14px;
+            padding: 16px 18px;
+            border: 1px dashed #dd6b20;
+            margin-bottom: 25px;
+        }
+
+        .casos-especiales h3 {
+            color: #9c4221;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .casos-especiales .lista-casos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .casos-especiales .item {
+            background: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .casos-especiales .item .badge {
+            background: #dd6b20;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-left: 6px;
+        }
+
+        /* Regla mnemotécnica */
+        .regla {
+            background: #1a202c;
+            color: #f7fafc;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .regla p {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .regla .flechas {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .regla .flechas span {
+            background: #2d3748;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Errores comunes */
+        .errores {
+            background: #fff5f5;
+            border-left: 6px solid #e53e3e;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .errores h3 {
+            color: #c53030;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .errores ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .errores li {
+            padding: 4px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .errores li::before {
+            content: "❌";
+        }
+
+        /* Ejemplo práctico */
+        .ejemplo-practico {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid #38b2ac;
+            margin-bottom: 15px;
+        }
+
+        .ejemplo-practico h3 {
+            color: #234e52;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .ejemplo-practico .pasos {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .ejemplo-practico .pasos .resaltado {
+            background: #fbd38d;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #a0aec0;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 480px) {
+            .grid-propiedades {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .infografia {
+                padding: 20px 15px;
+            }
+            .regla .flechas {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infografia">
+
+        <!-- Título -->
+        <div class="header">
+            <h1>⚡ POTENCIACIÓN <span>|</span> LEYES</h1>
+            <p>Propiedades esenciales · Ejemplos claros</p>
+        </div>
+
+        <!-- Definición -->
+        <div class="definicion">
+            <div class="formula">aⁿ = a · a · a · ... · a (n veces)</div>
+            <div class="detalle"><strong>a</strong> = base (real) · <strong>n</strong> = exponente (entero)</div>
+        </div>
+
+        <!-- Propiedades en grid -->
+        <div class="seccion">
+            <h2><span class="icono">📐</span> Propiedades fundamentales</h2>
+            <div class="grid-propiedades">
+                <div class="tarjeta">
+                    <div class="nombre">1. Producto misma base</div>
+                    <div class="formula-prop">aᵐ · aⁿ = aᵐ⁺ⁿ</div>
+                    <div class="ejemplo">Ej: 2³ · 2² = <span>2⁵ = 32</span></div>
+                </div>
+                <div class="tarjeta">
+                    <div class="nombre">2. Cociente misma base</div>
+                    <div class="formula-prop">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</div>
+                    <div class="ejemplo">Ej: 5⁴ ÷ 5² = <span>5² = 25</span></div>
+                </div>
+                <div class="tarjeta">
+                    <div class="nombre">3. Potencia de potencia</div>
+                    <div class="formula-prop">(aᵐ)ⁿ = aᵐ·ⁿ</div>
+                    <div class="ejemplo">Ej: (3²)³ = <span>3⁶ = 729</span></div>
+                </div>
+                <div class="tarjeta">
+                    <div class="nombre">4. Potencia de producto</div>
+                    <div class="formula-prop">(a·b)ⁿ = aⁿ · bⁿ</div>
+                    <div class="ejemplo">Ej: (2·3)² = 2²·3² = <span>36</span></div>
+                </div>
+                <div class="tarjeta">
+                    <div class="nombre">5. Potencia de cociente</div>
+                    <div class="formula-prop">(a/b)ⁿ = aⁿ / bⁿ</div>
+                    <div class="ejemplo">Ej: (4/2)³ = 4³/2³ = <span>8</span></div>
+                </div>
+                <div class="tarjeta">
+                    <div class="nombre">6. Exponente cero</div>
+                    <div class="formula-prop">a⁰ = 1 (a ≠ 0)</div>
+                    <div class="ejemplo">Ej: 7⁰ = <span>1</span></div>
+                </div>
+                <div class="tarjeta" style="grid-column: span 2; text-align: center;">
+                    <div class="nombre">7. Exponente negativo</div>
+                    <div class="formula-prop">a⁻ⁿ = 1 / aⁿ</div>
+                    <div class="ejemplo">Ej: 2⁻³ = <span>1/8</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Casos especiales -->
+        <div class="casos-especiales">
+            <h3>⭐ Casos especiales</h3>
+            <div class="lista-casos">
+                <div class="item">1ⁿ = 1 <span class="badge">siempre</span></div>
+                <div class="item">0ⁿ = 0 (n>0) <span class="badge">cuidado</span></div>
+                <div class="item">0⁰ <span class="badge" style="background:#c53030;">indeterminado</span></div>
+                <div class="item">a¹ = a</div>
+                <div class="item">a^(m/n) = ⁿ√(aᵐ)</div>
+            </div>
+        </div>
+
+        <!-- Regla mnemotécnica -->
+        <div class="regla">
+            <p>🧠 REGLA MNEMOTÉCNICA</p>
+            <div class="flechas">
+                <span>✖️ Multiplicación → ➕ SUMA</span>
+                <span>➗ División → ➖ RESTA</span>
+                <span>⬆️ Potencia → ✖️ MULTIPLICACIÓN</span>
+                <span>➖ Negativo → 🔄 INVERTIR</span>
+            </div>
+        </div>
+
+        <!-- Errores comunes -->
+        <div class="errores">
+            <h3>⚠️ Errores comunes</h3>
+            <ul>
+                <li>(a+b)ⁿ ≠ aⁿ + bⁿ</li>
+                <li>a⁰ = 1 (si a ≠ 0) — ¡no olvides!</li>
+                <li>(aᵐ)ⁿ ≠ aᵐ⁺ⁿ (es multiplicación, no suma)</li>
+            </ul>
+        </div>
+
+        <!-- Ejemplo práctico -->
+        <div class="ejemplo-practico">
+            <h3>✅ Ejemplo paso a paso</h3>
+            <div class="pasos">
+                Calcular: <strong>(2³ · 2⁻²)² ÷ 2²</strong><br>
+                1. Producto: 2³⁻² = <span class="resaltado">2¹</span><br>
+                2. Potencia: (2¹)² = <span class="resaltado">2²</span><br>
+                3. División: 2² ÷ 2² = 2⁰ = <span class="resaltado">1</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Infografía educativa · Propiedades de la potenciación
+        </div>
+
+    </div>
+
+</body>
+</html>
