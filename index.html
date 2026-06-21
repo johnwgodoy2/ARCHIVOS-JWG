@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Actividades - Compartir</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; padding: 40px 20px; display: flex; justify-content: center; }
+        .contenedor { max-width: 800px; width: 100%; background: white; border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1a365d; margin-bottom: 8px; font-size: 2rem; }
+        .subtitulo { text-align: center; color: #718096; margin-bottom: 30px; }
+        .instruccion { background: #ebf8ff; border-left: 6px solid #3182ce; padding: 12px 16px; border-radius: 10px; margin-bottom: 25px; }
+        .lista { display: flex; flex-direction: column; gap: 12px; }
+        .archivo { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #f7fafc; border-radius: 14px; border: 1px solid #e2e8f0; transition: 0.2s; }
+        .archivo:hover { border-color: #3182ce; background: #edf2f7; }
+        .archivo .nombre { font-weight: 600; color: #2d3748; display: flex; align-items: center; gap: 10px; }
+        .archivo .icono { font-size: 1.4rem; }
+        .boton { background: #3182ce; color: white; padding: 8px 18px; border-radius: 30px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.2s; }
+        .boton:hover { background: #2b6cb0; transform: scale(1.05); }
+        .footer { text-align: center; margin-top: 30px; color: #a0aec0; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 18px; }
+        /* Responsive */
+        @media (max-width: 500px) {
+            .archivo { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .boton { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>📂 Mis Actividades</h1>
+        <p class="subtitulo">Haz clic en el botón para descargar cada archivo</p>
+
+        <div class="instruccion">
+            <strong>🔗 Comparte este enlace:</strong> <span id="enlace-compartir" style="background:white; padding:4px 10px; border-radius:6px; border:1px solid #cbd5e0; word-break:break-all;"></span>
+            <br><small>Copia y pega este enlace a quien quieras que vea tus actividades.</small>
+        </div>
+
+        <div class="lista" id="lista-archivos">
+            <!-- Aquí se mostrarán tus archivos automáticamente -->
+        </div>
+
+        <div class="footer">
+            Sube tus archivos a GitHub y esta página los mostrará automáticamente.
+        </div>
+    </div>
+
+    <script>
+        // CAMBIA ESTO: pon el nombre de tu usuario de GitHub y el repositorio
+        const USUARIO = "tu_usuario";   // ejemplo: "juanperez"
+        const REPOSITORIO = "mis-actividades";  // ejemplo: "mis-actividades"
+
+        // Esta función obtiene la lista de archivos desde GitHub
+        async function cargarArchivos() {
+            try {
+                const respuesta = await fetch(`https://api.github.com/repos/${USUARIO}/${REPOSITORIO}/contents/`);
+                const archivos = await respuesta.json();
+
+                const lista = document.getElementById("lista-archivos");
+                lista.innerHTML = "";
+
+                // Mostrar el enlace para compartir
+                const enlace = document.getElementById("enlace-compartir");
+                enlace.textContent = `https://${USUARIO}.github.io/${REPOSITORIO}/`;
+
+                // Filtrar solo archivos (no carpetas) y ordenar por nombre
+                const soloArchivos = archivos.filter(a => a.type === "file").sort((a,b) => a.name.localeCompare(b.name));
+
+                if (soloArchivos.length === 0) {
+                    lista.innerHTML = `<div style="text-align:center; color:#a0aec0; padding:20px;">Aún no has subido archivos. Sube tus actividades a GitHub.</div>`;
+                    return;
+                }
+
+                soloArchivos.forEach(archivo => {
+                    // Icono según extensión
+                    let icono = "📄";
+                    const ext = archivo.name.split('.').pop().toLowerCase();
+                    if (["pdf"].includes(ext)) icono = "📕";
+                    else if (["jpg","jpeg","png","gif","svg","webp"].includes(ext)) icono = "🖼️";
+                    else if (["doc","docx"].includes(ext)) icono = "📝";
+                    else if (["xls","xlsx"].includes(ext)) icono = "📊";
+                    else if (["ppt","pptx"].includes(ext)) icono = "📽️";
+                    else if (["zip","rar","7z"].includes(ext)) icono = "📦";
+                    else if (["mp3","wav"].includes(ext)) icono = "🎵";
+                    else if (["mp4","avi","mov","mkv"].includes(ext)) icono = "🎬";
+                    else if (["html","htm"].includes(ext)) icono = "🌐";
+                    else if (["txt","md"].includes(ext)) icono = "📃";
+
+                    const elemento = document.createElement("div");
+                    elemento.className = "archivo";
+                    elemento.innerHTML = `
+                        <div class="nombre">
+                            <span class="icono">${icono}</span>
+                            ${archivo.name}
+                        </div>
+                        <a href="${archivo.download_url}" target="_blank" class="boton">⬇️ Descargar</a>
+                    `;
+                    lista.appendChild(elemento);
+                });
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById("lista-archivos").innerHTML = `
+                    <div style="text-align:center; color:#e53e3e; padding:20px;">
+                        ⚠️ Error al cargar archivos. Verifica que el repositorio sea público y que hayas subido archivos.
+                    </div>
+                `;
+            }
+        }
+
+        // Cargar al abrir la página
+        cargarArchivos();
+    </script>
+</body>
+</html>
